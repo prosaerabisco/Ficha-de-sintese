@@ -511,9 +511,7 @@ body[data-print="all"] section[hidden]{display:block!important}
   var segs=[],cur=[];
   words.forEach(function(w,i){if(flags[i])cur.push(w.text);else if(cur.length){segs.push(cur.join(" "));cur=[]}});
   if(cur.length)segs.push(cur.join(" "));
-  return segs.join("
-
-");
+  return segs.join("\n\n");
  }
  async function ocrPhoto(u){
   var im=await loadImg(u),c=document.createElement("canvas");c.width=im.width;c.height=im.height;
@@ -537,9 +535,7 @@ body[data-print="all"] section[hidden]{display:block!important}
    var res=await ocrPhoto(u),txt=res.hl||res.full;
    if(!txt){r.st="Não consegui ler texto nesta foto. Digite o trecho acima."}
    else{
-    r.a=(r.a?r.a+"
-
-":"")+txt;
+    r.a=(r.a?r.a+"\n\n":"")+txt;
     r.o=r.imgs.length===1?{hl:res.hl,full:res.full}:null;r.s=res.hl?"hl":"full";
     r.st=res.hl?"✓ Li o trecho destacado. Confira o texto e corrija se precisar.":"✓ Li o texto da página (não achei destaque). Apague o que não for a citação.";
    }
