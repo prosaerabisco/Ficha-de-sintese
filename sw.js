@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prosa-sintese-v3';
+const CACHE_NAME = 'prosa-sintese-v4';
 const ASSETS = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', (e) => {

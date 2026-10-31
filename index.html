@@ -69,18 +69,26 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow-x:hidden}
 .wrap{max-width:1000px;margin:0 auto;padding:20px 16px 80px}
 
-/* CABEÇALHO EDITORIAL: DESTAQUE DO LOGOTIPO E TÍTULO PRINCIPAL */
-.brand-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:6px 0 18px;margin-bottom:18px;border-bottom:2px solid var(--ink);animation:panelIn .45s var(--ease-out) both}
+/* CABEÇALHO EDITORIAL: DESTAQUE DO LOGOTIPO, TÍTULO E CONTA */
+.brand-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:6px 0 18px;margin-bottom:18px;border-bottom:2px solid var(--ink);animation:panelIn .45s var(--ease-out) both}
 .logo{display:block;height:84px;width:auto;max-width:100%;filter:invert(var(--inv));transition:transform .3s var(--ease-spring);transform-origin:left center}
-.hero-copy{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.hero-copy{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .hero-title{margin:0;font-size:clamp(24px,3.2vw,30px);font-weight:700;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
+.hero-utils{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.acct-chip{padding:5px 11px 5px 6px!important;border-radius:99px!important;font-size:12px!important;gap:7px!important}
+.acct-ava{width:24px;height:24px;border-radius:50%;background:var(--hl);color:#000;border:1.5px solid #000;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;flex-shrink:0;overflow:hidden;text-transform:uppercase}
+.acct-ava img{width:100%;height:100%;object-fit:cover;display:block}
+.acct-dot{width:7px;height:7px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0}
 .hl-sweep{position:relative;display:inline-block;z-index:1;padding:0 2px}
 .hl-sweep::after{content:"";position:absolute;left:-2px;right:-2px;bottom:2px;height:40%;background:var(--hl);z-index:-1;border-radius:2px;transform:skewX(-7deg) scaleX(1);transform-origin:left center;animation:markerDraw .65s var(--ease-out) .12s backwards;transition:height .22s var(--ease-out)}
 :root[data-theme="dark"] .hl-sweep::after{height:3px;bottom:-4px;transform:scaleX(1)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hl-sweep::after{height:3px;bottom:-4px;transform:scaleX(1)}}
 
-/* TÍTULOS DAS SEÇÕES (.ptitle) */
+/* TÍTULOS DAS SEÇÕES (.ptitle) & FERRAMENTAS DA FICHA */
+.ptitle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px}
+.ptitle-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ptitle{display:flex;align-items:center;gap:10px;font-size:clamp(18px,2.2vw,21px);font-weight:700;text-transform:none;letter-spacing:-.015em;margin:0 0 14px;color:var(--ink)}
+.ptitle-row .ptitle{margin:0}
 .ptitle::before{content:"";width:9px;height:20px;background:var(--hl);border:1px solid var(--ink);border-radius:3px;flex-shrink:0;transform:skewX(-6deg)}
 
 /* AVISO WHATSAPP */
@@ -88,13 +96,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .wa-banner button{background:none;border:none;font-weight:700;font-size:18px;cursor:pointer;padding:0 6px;border-radius:4px;transition:transform .15s var(--ease-spring)}
 .wa-banner button:hover{transform:scale(1.2)}
 
-/* TOPO & BARRA DE LEITURA ATIVA */
-.active-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;flex-wrap:wrap;transition:border-color .2s ease}
-.active-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
-.active-title{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* TOPO & BARRA DE LEITURA ATIVA (DESAFOGADA E CLARA) */
+.active-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 15px;flex-wrap:wrap;transition:border-color .2s ease}
+.active-info{display:flex;flex-direction:column;gap:2px;min-width:180px;flex:1}
+.active-kicker{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.active-title{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
 .active-badge{font-size:11px;background:var(--hl);color:#000;padding:2px 7px;border-radius:99px;font-weight:600;white-space:nowrap}
-.active-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.save-pill{font-size:11px;color:var(--mute);display:flex;align-items:center;gap:4px;white-space:nowrap;padding:3px 8px;border-radius:99px;transition:color .2s ease,background-color .2s ease}
+.active-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.save-pill{font-size:11px;color:var(--mute);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;padding:1px 7px;border-radius:99px;background:var(--bg);border:1px solid var(--line);text-transform:none;letter-spacing:0;transition:color .2s ease,background-color .2s ease}
 .save-pill.saving{color:#d97706}
 .save-pill.saved-pop #savedot{animation:savePop .36s var(--ease-spring)}
 
@@ -142,11 +151,13 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ink);box
 .del:hover{color:var(--danger);background:var(--danger-bg);transform:scale(1.1)}
 .modal-head .del{position:static}
 
-/* BOTÕES COM FÍSICA TÁTIL E MICRO-ANIMAÇÕES */
-.btn{position:relative;overflow:hidden;font:inherit;font-size:13px;padding:9px 16px;border-radius:6px;border:1px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;--mx:0px;--my:0px;transform:translate(var(--mx),var(--my));transition:transform .2s var(--ease-spring),box-shadow .2s var(--ease-out),background-color .16s ease,border-color .16s ease,color .16s ease}
+/* BOTÕES COM FÍSICA TÁTIL, SEM QUEBRA DE LINHA E BADGE TABULAR */
+.btn{position:relative;overflow:hidden;font:inherit;font-size:13px;padding:9px 15px;border-radius:7px;border:1px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;flex-shrink:0;--mx:0px;--my:0px;transform:translate(var(--mx),var(--my));transition:transform .2s var(--ease-spring),box-shadow .2s var(--ease-out),background-color .16s ease,border-color .16s ease,color .16s ease}
 .btn.p{background:var(--hl);color:#000;font-weight:700;border-color:#000}
 .btn.p::after{content:"";position:absolute;top:0;left:-120%;width:65%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);transition:left .48s var(--ease-out);pointer-events:none}
-.btn.sm{padding:6px 11px;font-size:12px}
+.btn.sm{padding:7px 12px;font-size:12px}
+.btn.xs{padding:5px 10px;font-size:11.5px;border-radius:99px}
+.btn-badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:20px;padding:0 6px;border-radius:99px;background:#000;color:var(--hl);font-size:11.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;flex-shrink:0}
 .btn.danger{background:none;border-color:var(--danger);color:var(--danger)}
 .btn.danger:hover{background:var(--danger-bg)}
 .btn[disabled]{opacity:.5;cursor:default;pointer-events:none}
@@ -241,12 +252,26 @@ h2{font-size:13px;text-transform:uppercase;margin:0 0 6px}
   .cursor-fx,.cursor-ripple{display:none!important}
 }
 
-/* BANNER SOMENTE LEITURA (?ver=TOKEN), LOGIN & COMPARTILHAMENTO */
+/* BANNER SOMENTE LEITURA (?ver=TOKEN), LOGIN, CONTA & COMPARTILHAMENTO */
 .ro-banner{background:var(--hl-soft);color:var(--ink);border:1.5px solid var(--ink);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:3px 3px 0 var(--ink);animation:panelIn .35s var(--ease-spring) both}
 .acct-bar{padding:10px 18px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
 .acct-bar strong{color:var(--ink);word-break:break-all}
 .modal-bg.auth-bg{background:rgba(10,10,8,.72);backdrop-filter:blur(6px);z-index:150}
-.code-inp{font-family:var(--font)!important;font-size:18px!important;font-weight:700;letter-spacing:.18em;text-align:center;text-transform:uppercase}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--card);padding:4px;border:1px solid var(--line);border-radius:8px}
+.auth-tab{font:inherit;font-size:12.5px;padding:8px 10px;border-radius:6px;border:1px solid transparent;background:none;color:var(--mute);cursor:pointer;font-weight:600;transition:background-color .16s ease,color .16s ease,border-color .16s ease}
+.auth-tab[aria-selected="true"]{background:var(--hl);color:#000;border-color:#000;font-weight:700}
+.auth-or{display:flex;align-items:center;gap:10px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:2px 0}
+.auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.pass-wrap{position:relative;display:flex;align-items:center}
+.pass-wrap input{padding-right:68px;font-family:var(--font)}
+.pass-tog{position:absolute;right:6px;background:none;border:none;color:var(--mute);font:inherit;font-size:11px;cursor:pointer;padding:4px 6px;border-radius:4px}
+.pass-tog:hover{color:var(--ink);background:var(--bg)}
+.link-btn{background:none;border:none;color:var(--mute);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer;padding:4px 0;text-align:center}
+.link-btn:hover{color:var(--ink)}
+.code-inp{font-family:var(--font)!important;font-size:17px!important;font-weight:700;letter-spacing:.12em;text-align:center}
+.prof-card{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.prof-ava-lg{width:46px;height:46px;border-radius:50%;background:var(--hl);color:#000;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;flex-shrink:0;overflow:hidden;text-transform:uppercase}
+.prof-ava-lg img{width:100%;height:100%;object-fit:cover;display:block}
 .share-url-box{display:flex;gap:6px;align-items:stretch;flex-wrap:wrap}
 .share-url-box input{flex:1;min-width:180px;font-family:var(--font);font-size:12px}
 .auth-msg{font-size:12px;padding:8px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card)}
@@ -269,9 +294,17 @@ body.is-readonly input,body.is-readonly textarea{cursor:default}
 
 @media (max-width:720px){
   .wrap{padding:14px 12px 100px}
-  .brand-hero{flex-direction:column;align-items:flex-start;gap:10px;padding:2px 0 14px;margin-bottom:14px}
-  .logo{height:62px}
-  .hero-copy{text-align:left;align-items:flex-start}
+  .brand-hero{flex-direction:column;align-items:stretch;gap:12px;padding:2px 0 14px;margin-bottom:14px}
+  .logo{height:58px;align-self:flex-start}
+  .hero-copy{text-align:left;align-items:flex-start;width:100%}
+  .hero-utils{justify-content:flex-start;width:100%}
+  .active-bar{padding:12px;gap:10px}
+  .active-info{width:100%;flex:none}
+  .active-actions{width:100%;display:grid;grid-template-columns:1fr auto;gap:8px}
+  .active-actions .btn{justify-content:center}
+  .ptitle-row{align-items:flex-start}
+  .ptitle-tools{width:100%}
+  .ptitle-tools .btn{flex:1;justify-content:center}
   .meta,.grid2{grid-template-columns:1fr}
   .heads{display:none}
   .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
@@ -282,6 +315,9 @@ body.is-readonly input,body.is-readonly textarea{cursor:default}
   .del{right:6px;top:4px}
   .fab{display:block;animation:rowIn .3s var(--ease-spring) both}
   .fab[hidden]{display:none!important}
+}
+@media (max-width:420px){
+  .active-actions .btn.sm,.ptitle-tools .btn.sm{padding:7px 9px;font-size:11.5px;gap:5px}
 }
 
 @media print{
@@ -313,6 +349,14 @@ body[data-print="all"] section[hidden]{display:block!important}
 
   <div class="hero-copy">
    <h1 class="hero-title"><span class="hl-sweep">Ficha de Síntese</span></h1>
+   <div class="hero-utils noprint">
+    <button class="btn xs" id="installbtn" type="button" title="Adicionar aplicativo na tela inicial do celular">📲 Instalar app</button>
+    <button class="btn xs acct-chip ro-hide" id="acctbtn" type="button" title="Ver minha conta, senha e sincronização">
+     <span class="acct-ava" id="acctava">👤</span>
+     <span id="acctlabel">Minha Conta</span>
+     <span class="acct-dot" id="acctdot" hidden></span>
+    </button>
+   </div>
   </div>
  </header>
 
@@ -331,14 +375,15 @@ body[data-print="all"] section[hidden]{display:block!important}
  <!-- BARRA DE LEITURA ATIVA & HISTÓRICO VISÍVEL -->
  <div class="active-bar noprint">
   <div class="active-info">
-   <button class="btn sm p ro-hide" id="openlib" title="Ver todas as leituras salvas">📚 Minhas Leituras (<span id="libcount">1</span>)</button>
+   <div class="active-kicker">
+    <span>Leitura ativa</span>
+    <span class="save-pill ro-hide" id="savest"><span id="savedot">✓</span> <span id="savetxt">Salvo</span></span>
+   </div>
    <span class="active-title" id="curtitle">Carregando...</span>
   </div>
   <div class="active-actions">
-   <button class="btn sm ro-hide" id="newbooktop" title="Começar uma nova leitura">+ Nova Leitura</button>
-   <button class="btn sm ro-hide" id="sharebtn" title="Gerar link de leitura para enviar no grupo">🔗 Compartilhar</button>
-   <button class="btn sm" id="installbtn" title="Criar ícone na tela inicial do celular">📲 Criar ícone</button>
-   <span class="save-pill ro-hide" id="savest"><span id="savedot">✓</span> <span id="savetxt">Salvo</span></span>
+   <button class="btn sm p ro-hide" id="openlib" type="button" title="Ver todas as leituras salvas"><span>📚 Minhas Leituras</span><span class="btn-badge" id="libcount">1</span></button>
+   <button class="btn sm ro-hide" id="newbooktop" type="button" title="Começar uma nova leitura">+ Nova Leitura</button>
   </div>
  </div>
 
@@ -353,7 +398,13 @@ body[data-print="all"] section[hidden]{display:block!important}
 
  <!-- ABA 1: FICHA -->
  <section id="p-ficha">
-  <h2 class="ptitle">Notas &amp; trechos da leitura</h2>
+  <div class="ptitle-row">
+   <h2 class="ptitle">Notas &amp; trechos da leitura</h2>
+   <div class="ptitle-tools noprint ro-hide">
+    <button class="btn sm" id="sharebtn" type="button" title="Gerar link público desta ficha para enviar no grupo">🔗 Compartilhar</button>
+    <button class="btn sm" id="toppdfbtn" type="button" title="Exportar ou imprimir em PDF">📄 Gerar PDF</button>
+   </div>
+  </div>
   <div class="meta">
    <div><label class="f" for="livro">Livro ou texto</label><input id="livro" placeholder="Nome do livro ou texto"></div>
    <div><label class="f" for="nome">Seu nome</label><input id="nome" placeholder="Como quer assinar"></div>
@@ -564,43 +615,131 @@ body[data-print="all"] section[hidden]{display:block!important}
   </div>
  </div>
 
- <!-- PORTAL DE ENTRADA SEM SENHA & CONVITE DO CLUBE -->
- <div class="modal-bg auth-bg noprint" id="authgate" hidden>
+ <!-- MODAL MINHA CONTA (PERFIL, SENHA E SESSÃO) -->
+ <div class="modal-bg noprint" id="acctmodal" hidden>
   <div class="modal-card" style="max-width:440px">
    <div class="modal-head">
-    <h3>✏️ Prosa &amp; Rabisco · Seu Caderno</h3>
+    <h3>👤 Minha Conta</h3>
+    <button class="del" id="closeacct" aria-label="Fechar">×</button>
+   </div>
+   <div class="modal-body">
+    <div class="prof-card">
+     <div class="prof-ava-lg" id="profava">👤</div>
+     <div style="min-width:0;flex:1">
+      <div style="font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis" id="profnameview">Leitor(a)</div>
+      <div class="note" style="word-break:break-all" id="profemail">Modo local</div>
+      <div style="font-size:11px;margin-top:3px;font-weight:600" id="profstatus">☁️ Sincronização ativa</div>
+     </div>
+    </div>
+
+    <div class="box" style="margin:0;padding:12px">
+     <label class="f" for="profnameinp">Seu nome para assinar as fichas</label>
+     <div style="display:flex;gap:6px;margin-top:4px">
+      <input id="profnameinp" placeholder="Como quer assinar" style="flex:1">
+      <button class="btn sm p" id="savenamebtn" type="button">Salvar</button>
+     </div>
+    </div>
+
+    <div class="box" style="margin:0;padding:12px" id="profpassbox">
+     <label class="f" for="newpassinp">Definir ou alterar minha senha</label>
+     <p class="note" style="margin:2px 0 6px">Com uma senha salva, você entra direto em qualquer aparelho sem precisar abrir o e-mail:</p>
+     <div style="display:flex;gap:6px">
+      <input id="newpassinp" type="password" autocomplete="new-password" placeholder="Nova senha (mín. 6 dígitos)" style="flex:1;font-family:var(--font)">
+      <button class="btn sm" id="newpassbtn" type="button">Salvar senha</button>
+     </div>
+    </div>
+   </div>
+   <div style="padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px">
+    <span class="note" id="profbookcnt">1 leitura salva</span>
+    <button class="btn sm danger" id="acctlogoutbtn" type="button">Sair da conta</button>
+   </div>
+  </div>
+ </div>
+
+ <!-- PORTAL DE LOGIN REAL (ENTRAR / CRIAR CONTA / GOOGLE) & CONVITE DO CLUBE -->
+ <div class="modal-bg auth-bg noprint" id="authgate" hidden>
+  <div class="modal-card" style="max-width:450px">
+   <div class="modal-head">
+    <h3>✏️ Prosa &amp; Rabisco · Sua Conta</h3>
    </div>
    <div class="modal-body">
     <div class="auth-msg" id="authmsg" hidden></div>
 
-    <div id="authstep1" style="display:flex;flex-direction:column;gap:10px">
-     <p class="note" style="margin:0">Entre com seu e-mail para deixar suas leituras salvas na nuvem e acessá-las do celular ou computador, <strong>sem precisar criar senha</strong>:</p>
-     <div>
-      <label class="f" for="authemail">Seu melhor e-mail</label>
-      <input id="authemail" type="email" autocomplete="email" placeholder="voce@email.com" style="font-family:var(--font)">
+    <div id="authstep1" style="display:flex;flex-direction:column;gap:11px">
+     <div class="auth-tabs" role="tablist">
+      <button class="auth-tab" id="tablogin" type="button" role="tab" aria-selected="true">Já tenho conta</button>
+      <button class="auth-tab" id="tabsignup" type="button" role="tab" aria-selected="false">Criar conta (1º acesso)</button>
      </div>
-     <button class="btn p" id="sendotpbtn" type="button" style="width:100%;justify-content:center">Enviar acesso para meu e-mail →</button>
-     <button class="btn" id="googlebtn" type="button" style="width:100%;justify-content:center" hidden>Entrar com Google</button>
+
+     <button class="btn" id="googlebtn" type="button" style="width:100%;justify-content:center;font-weight:600">
+      <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true" style="flex-shrink:0"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      <span>Continuar com Google</span>
+     </button>
+
+     <div class="auth-or">ou com e-mail e senha</div>
+
+     <!-- PAINEL ENTRAR (ACESSOS SEGUINTES: DIRETO, SEM PEDIR E-MAIL DE CONFIRMAÇÃO) -->
+     <div id="panellogin" style="display:flex;flex-direction:column;gap:9px">
+      <div>
+       <label class="f" for="authemail">Seu e-mail</label>
+       <input id="authemail" type="email" autocomplete="email" placeholder="voce@email.com" style="font-family:var(--font)">
+      </div>
+      <div>
+       <label class="f" for="authpass">Sua senha</label>
+       <div class="pass-wrap">
+        <input id="authpass" type="password" autocomplete="current-password" placeholder="Digite sua senha">
+        <button class="pass-tog" id="togloginpass" type="button">Mostrar</button>
+       </div>
+      </div>
+      <button class="btn p" id="loginpassbtn" type="button" style="width:100%;justify-content:center">Entrar no caderno →</button>
+      <button class="link-btn" id="sendotpbtn" type="button">Esqueci minha senha ou ainda não criei senha (receber por e-mail)</button>
+     </div>
+
+     <!-- PAINEL CRIAR CONTA (1º ACESSO: JÁ COM PALAVRA-PASSE TEXTO+NÚMERO) -->
+     <div id="panelsignup" style="display:flex;flex-direction:column;gap:9px" hidden>
+      <div>
+       <label class="f" for="signupname">Seu nome</label>
+       <input id="signupname" type="text" autocomplete="name" placeholder="Como quer assinar suas fichas">
+      </div>
+      <div>
+       <label class="f" for="signupemail">Seu melhor e-mail</label>
+       <input id="signupemail" type="email" autocomplete="email" placeholder="voce@email.com" style="font-family:var(--font)">
+      </div>
+      <div>
+       <label class="f" for="signuppass">Crie uma senha (mín. 6 caracteres)</label>
+       <div class="pass-wrap">
+        <input id="signuppass" type="password" autocomplete="new-password" placeholder="Para entrar direto nos próximos acessos">
+        <button class="pass-tog" id="togsignuppass" type="button">Mostrar</button>
+       </div>
+      </div>
+      <div>
+       <label class="f" for="signupinvite">Palavra-passe do clube (letras e números)</label>
+       <input id="signupinvite" type="text" autocomplete="off" placeholder="Digite a palavra-passe enviada no grupo" style="font-family:var(--font);font-weight:700">
+      </div>
+      <button class="btn p" id="signupbtn" type="button" style="width:100%;justify-content:center">Criar minha conta →</button>
+     </div>
     </div>
 
+    <!-- CONFIRMAÇÃO ÚNICA DO E-MAIL (OU RECUPERAÇÃO SEM SENHA) -->
     <div id="authstepcode" style="display:flex;flex-direction:column;gap:10px" hidden>
-     <p class="note" style="margin:0">Enviamos um e-mail para <strong id="sentemailtxt"></strong>! Clique em <strong>“Log In”</strong> lá no e-mail para abrir seu caderno direto — ou, se aparecer um código numérico, digite abaixo:</p>
+     <p class="note" style="margin:0" id="sentemaildesc">Enviamos um e-mail de confirmação única para <strong id="sentemailtxt"></strong>. Clique no botão lá no e-mail para ativar sua conta — ou, se o e-mail trouxer um código, digite abaixo:</p>
      <div>
-      <label class="f" for="authcode">Código numérico (opcional se clicar no link do e-mail)</label>
-      <input id="authcode" class="code-inp" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="000000">
+      <label class="f" for="authcode">Código de verificação do e-mail (opcional se clicar no link)</label>
+      <input id="authcode" class="code-inp" type="text" autocomplete="one-time-code" maxlength="12" placeholder="Digite o código do e-mail">
      </div>
-     <button class="btn p" id="verifyotpbtn" type="button" style="width:100%;justify-content:center">Confirmar código e abrir caderno</button>
-     <button class="btn sm" id="backemailbtn" type="button" style="width:100%;justify-content:center">← Trocar e-mail ou reenviar acesso</button>
+     <button class="btn p" id="verifyotpbtn" type="button" style="width:100%;justify-content:center">Confirmar e abrir caderno</button>
+     <button class="btn sm" id="backemailbtn" type="button" style="width:100%;justify-content:center">← Voltar para o login</button>
     </div>
 
+    <!-- PALAVRA-PASSE DO CLUBE (PEDIDA APENAS 1 VEZ PARA QUEM ENTRA COM GOOGLE OU AJUSTE) -->
     <div id="authstepinvite" style="display:flex;flex-direction:column;gap:10px" hidden>
-     <p class="note" style="margin:0">Bem-vindo(a)! Este caderno é exclusivo da comunidade <strong>Prosa &amp; Rabisco</strong>. Digite a palavra-passe enviada no grupo (só é pedida neste primeiro acesso):</p>
+     <p class="note" style="margin:0">Bem-vindo(a)! Este caderno é exclusivo da comunidade <strong>Prosa &amp; Rabisco</strong>. Digite a palavra-passe enviada no grupo (letras e números — pedida apenas neste primeiro acesso):</p>
      <div>
       <label class="f" for="invitecode">Palavra-passe do clube</label>
-      <input id="invitecode" class="code-inp" autocomplete="off" placeholder="Digite a palavra-passe">
+      <input id="invitecode" class="code-inp" type="text" autocomplete="off" placeholder="Digite a palavra-passe">
      </div>
      <button class="btn p" id="unlockbtn" type="button" style="width:100%;justify-content:center">Liberar meu acesso ✨</button>
-     <button class="btn sm" id="switchaccbtn" type="button" style="width:100%;justify-content:center">Sair / usar outro e-mail</button>
+     <button class="btn sm" id="switchaccbtn" type="button" style="width:100%;justify-content:center">Sair / usar outra conta</button>
     </div>
    </div>
   </div>
@@ -622,7 +761,7 @@ body[data-print="all"] section[hidden]{display:block!important}
 var CLOUD_CFG={
  url:"https://uesnapgwpqrzfxcmcxvl.supabase.co",
  anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlc25hcGd3cHFyemZ4Y21jeHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzOTcwOTksImV4cCI6MjEwODk3MzA5OX0.w4Yur9LGBO4Eo7F8s7blWEM-U34lu9iOHbGlv1XZABg",
- googleLogin:false // Mude para true se ativar Login com Google no Supabase
+ googleLogin:true // Ative o provedor Google no Supabase (veja EMAILS-PERSONALIZADOS-SUPABASE.md)
 };
 
 (function(){
@@ -1220,8 +1359,17 @@ var CLOUD_CFG={
  $("#closelib").onclick=function(){closeModal($("#libmodal"))};
  $("#libmodal").onclick=function(e){if(e.target===$("#libmodal"))closeModal($("#libmodal"))};
 
+ function getProfileName(){
+  var metaName=USER&&USER.user_metadata&&(USER.user_metadata.full_name||USER.user_metadata.name);
+  var savedName="";
+  try{savedName=localStorage.getItem("prosa-user-name")||""}catch(e){}
+  return (metaName||savedName||(B&&B.meta&&B.meta.nome)||"").trim();
+ }
+
  function createNewBook(){
-  var n=mk();S.books.push(n);B=n;S.cur=n.id;fill();setTab("ficha");save();
+  var n=mk(),pName=getProfileName();
+  if(pName)n.meta.nome=pName;
+  S.books.push(n);B=n;S.cur=n.id;fill();setTab("ficha");save();
   closeModal($("#libmodal"),function(){$("#livro").focus()});
   toast("Nova leitura criada!");
  }
@@ -1260,6 +1408,7 @@ var CLOUD_CFG={
 
  /* PDF MODAL */
  $("#exppdfbtn").onclick=function(){openModal($("#pdfmodal"))};
+ $("#toppdfbtn").onclick=function(){openModal($("#pdfmodal"))};
  $("#closepdf").onclick=function(){closeModal($("#pdfmodal"))};
  $("#pdfmodal").onclick=function(e){if(e.target===$("#pdfmodal"))closeModal($("#pdfmodal"))};
  $("#confirmpdf").onclick=function(){
@@ -1382,7 +1531,7 @@ var CLOUD_CFG={
   toast("Link público desativado.");
  };
 
- /* PORTAL DE LOGIN SEM SENHA (OTP / MAGIC LINK / GOOGLE) + CONVITE DO CLUBE */
+ /* PERFIL "MINHA CONTA" + LOGIN REAL (E-MAIL/SENHA, CADASTRO ÚNICO, GOOGLE, OTP) */
  function setAuthMsg(txt,kind){
   var m=$("#authmsg");
   if(!txt){m.hidden=true;m.textContent="";m.className="auth-msg";return}
@@ -1397,14 +1546,195 @@ var CLOUD_CFG={
   setAuthMsg("");
  }
 
- if(CLOUD_CFG.googleLogin){$("#googlebtn").hidden=false}
+ var authMode="login";
+ function setAuthMode(mode){
+  authMode=mode;
+  $("#tablogin").setAttribute("aria-selected",mode==="login"?"true":"false");
+  $("#tabsignup").setAttribute("aria-selected",mode==="signup"?"true":"false");
+  $("#panellogin").hidden=(mode!=="login");
+  $("#panelsignup").hidden=(mode!=="signup");
+  setAuthMsg("");
+ }
+ $("#tablogin").onclick=function(){setAuthMode("login");setTimeout(function(){$("#authemail").focus()},50)};
+ $("#tabsignup").onclick=function(){setAuthMode("signup");setTimeout(function(){$("#signupname").focus()},50)};
 
+ function bindPassToggle(btnSel,inpSel){
+  var b=$(btnSel),inp=$(inpSel);
+  if(!b||!inp)return;
+  b.onclick=function(){
+   var show=(inp.type==="password");
+   inp.type=show?"text":"password";
+   b.textContent=show?"Ocultar":"Mostrar";
+  };
+ }
+ bindPassToggle("#togloginpass","#authpass");
+ bindPassToggle("#togsignuppass","#signuppass");
+
+ if(CLOUD_CFG.googleLogin===false){$("#googlebtn").hidden=true}
+
+ function updateAccountUI(){
+  var btn=$("#acctbtn"),ava=$("#acctava"),lbl=$("#acctlabel"),dot=$("#acctdot");
+  if(!btn)return;
+  if(!hasCloudCfg){btn.hidden=true;return}
+  btn.hidden=false;
+  if(USER&&USER.email){
+   var pName=getProfileName();
+   var shortName=pName||(USER.email.split("@")[0]||"Conta");
+   if(shortName.length>16)shortName=shortName.slice(0,15)+"…";
+   var pic=USER.user_metadata&&(USER.user_metadata.avatar_url||USER.user_metadata.picture);
+   var initChar=(pName||USER.email||"U").trim().charAt(0).toUpperCase();
+   if(pic){ava.innerHTML='<img src="'+esc(pic)+'" alt="">'}else{ava.textContent=initChar}
+   lbl.textContent=shortName;
+   dot.hidden=!CLUB_OK;
+   var pAva=$("#profava");
+   if(pAva){if(pic)pAva.innerHTML='<img src="'+esc(pic)+'" alt="">';else pAva.textContent=initChar}
+   $("#profnameview").textContent=pName||"Leitor(a) Prosa & Rabisco";
+   $("#profemail").textContent=USER.email;
+   $("#profstatus").textContent=CLUB_OK?"☁️ Nuvem ativa · Membro Prosa & Rabisco":"⏳ Aguardando liberação do convite";
+   $("#profnameinp").value=pName;
+   var cnt=S.books?S.books.length:1;
+   $("#profbookcnt").textContent=cnt+(cnt===1?" leitura salva na conta":" leituras salvas na conta");
+  }else{
+   ava.textContent="👤";
+   lbl.textContent="Entrar";
+   dot.hidden=true;
+  }
+ }
+
+ $("#acctbtn").onclick=function(){
+  if(!sb)return;
+  if(!USER||!CLUB_OK){openModal($("#authgate"));return}
+  updateAccountUI();
+  openModal($("#acctmodal"));
+ };
+ $("#closeacct").onclick=function(){closeModal($("#acctmodal"))};
+ $("#acctmodal").onclick=function(e){if(e.target===$("#acctmodal"))closeModal($("#acctmodal"))};
+
+ $("#savenamebtn").onclick=async function(){
+  var nm=($("#profnameinp").value||"").trim();
+  try{localStorage.setItem("prosa-user-name",nm)}catch(e){}
+  if(B&&(!B.meta.nome||B.meta.nome!==nm)){B.meta.nome=nm;$("#nome").value=nm;save()}
+  if(sb&&USER){
+   var btn=$("#savenamebtn");btn.disabled=true;btn.textContent="Salvando…";
+   try{
+    var r=await sb.auth.updateUser({data:{full_name:nm}});
+    if(r&&r.data&&r.data.user)USER=r.data.user;
+   }catch(e){}
+   btn.disabled=false;btn.textContent="Salvar";
+  }
+  updateAccountUI();
+  toast("Nome atualizado na sua conta!");
+ };
+
+ $("#newpassbtn").onclick=async function(){
+  if(!sb||!USER)return;
+  var np=($("#newpassinp").value||"");
+  if(np.length<6){toast("A senha precisa ter pelo menos 6 caracteres.");$("#newpassinp").focus();return}
+  var btn=$("#newpassbtn");btn.disabled=true;btn.textContent="Salvando…";
+  try{
+   var res=await sb.auth.updateUser({password:np});
+   if(res.error)throw res.error;
+   $("#newpassinp").value="";
+   toast("✓ Senha salva! Nos próximos acessos você entra direto com ela.");
+  }catch(e){
+   toast("Não foi possível atualizar a senha agora. Tente novamente.");
+  }
+  btn.disabled=false;btn.textContent="Salvar senha";
+ };
+
+ /* 1) LOGIN DIRETO COM E-MAIL E SENHA (SEM REENVIAR LINK NO E-MAIL) */
+ $("#loginpassbtn").onclick=async function(){
+  if(!sb)return;
+  var em=($("#authemail").value||"").trim().toLowerCase();
+  var pw=$("#authpass").value||"";
+  if(!em||em.indexOf("@")<1||em.indexOf(".")<3){setAuthMsg("Digite seu e-mail cadastrado.","err");$("#authemail").focus();return}
+  if(!pw){setAuthMsg("Digite sua senha (ou clique abaixo em “Esqueci minha senha” se ainda não criou uma).","err");$("#authpass").focus();return}
+  var btn=$("#loginpassbtn");
+  btn.disabled=true;btn.textContent="Entrando…";
+  setAuthMsg("");
+  try{
+   var res=await sb.auth.signInWithPassword({email:em,password:pw});
+   if(res.error)throw res.error;
+   if(res.data&&res.data.session){await handleSession(res.data.session)}
+  }catch(err){
+   var msg=String((err&&err.message)||"").toLowerCase();
+   if(msg.indexOf("email not confirmed")>-1){
+    pendingEmail=em;
+    setAuthMsg("Falta apenas confirmar seu e-mail do 1º cadastro! Clique abaixo em “Esqueci minha senha / receber por e-mail” se precisar de um novo link.","err");
+   }else{
+    setAuthMsg("E-mail ou senha incorretos. Se você entrou antes sem senha, clique abaixo em “Esqueci minha senha” para acessar e salvar sua senha.","err");
+   }
+  }
+  btn.disabled=false;btn.textContent="Entrar no caderno →";
+ };
+
+ /* 2) CADASTRO NO 1º ACESSO (JÁ COM PALAVRA-PASSE TEXTO+NÚMERO) */
+ $("#signupbtn").onclick=async function(){
+  if(!sb)return;
+  var nm=($("#signupname").value||"").trim();
+  var em=($("#signupemail").value||"").trim().toLowerCase();
+  var pw=$("#signuppass").value||"";
+  var inv=($("#signupinvite").value||"").trim();
+  if(!nm){setAuthMsg("Digite como você quer assinar suas fichas.","err");$("#signupname").focus();return}
+  if(!em||em.indexOf("@")<1||em.indexOf(".")<3){setAuthMsg("Digite um endereço de e-mail válido.","err");$("#signupemail").focus();return}
+  if(pw.length<6){setAuthMsg("Crie uma senha com pelo menos 6 caracteres.","err");$("#signuppass").focus();return}
+  if(!inv){setAuthMsg("Digite a palavra-passe do clube enviada no grupo.","err");$("#signupinvite").focus();return}
+
+  var btn=$("#signupbtn");
+  btn.disabled=true;btn.textContent="Criando sua conta…";
+  setAuthMsg("");
+  try{
+   localStorage.setItem("prosa-pending-invite",inv);
+   localStorage.setItem("prosa-user-name",nm);
+  }catch(e){}
+
+  try{
+   var opts={data:{full_name:nm}};
+   if(location.protocol==="https:"||location.protocol==="http:"){opts.emailRedirectTo=cleanUrl()}
+   var res=await sb.auth.signUp({email:em,password:pw,options:opts});
+   if(res.error)throw res.error;
+   if(res.data&&res.data.user&&Array.isArray(res.data.user.identities)&&res.data.user.identities.length===0){
+    setAuthMode("login");
+    $("#authemail").value=em;
+    setAuthMsg("Este e-mail já tem conta criada! Digite sua senha abaixo (ou clique em Esqueci minha senha).","ok");
+    btn.disabled=false;btn.textContent="Criar minha conta →";
+    return;
+   }
+   if(res.data&&res.data.session){
+    await handleSession(res.data.session);
+   }else{
+    pendingEmail=em;
+    $("#sentemailtxt").textContent=em;
+    $("#authcode").value="";
+    showAuthStep("code");
+    setAuthMsg("Conta criada! Confirme o e-mail enviado agora (só é pedido neste 1º cadastro; depois você entra direto com sua senha).","ok");
+   }
+  }catch(err){
+   var emsg=String((err&&err.message)||"").toLowerCase();
+   if(emsg.indexOf("already registered")>-1||emsg.indexOf("already been registered")>-1){
+    setAuthMode("login");
+    $("#authemail").value=em;
+    setAuthMsg("Este e-mail já possui conta! Entre com sua senha ou clique em Esqueci minha senha.","ok");
+   }else if(emsg.indexOf("rate limit")>-1){
+    setAuthMsg("Muitas tentativas seguidas de e-mail. Aguarde alguns minutos ou verifique sua caixa de entrada.","err");
+   }else{
+    setAuthMsg("Não foi possível concluir o cadastro agora. Confira os dados e tente novamente.","err");
+   }
+  }
+  btn.disabled=false;btn.textContent="Criar minha conta →";
+ };
+
+ /* 3) RECUPERAÇÃO / ACESSO POR CÓDIGO OU LINK NO E-MAIL (OPCIONAL) */
  $("#sendotpbtn").onclick=async function(){
   if(!sb)return;
   var em=($("#authemail").value||"").trim().toLowerCase();
-  if(!em||em.indexOf("@")<1||em.indexOf(".")<3){setAuthMsg("Digite um endereço de e-mail válido.","err");$("#authemail").focus();return}
+  if(!em||em.indexOf("@")<1||em.indexOf(".")<3){
+   setAuthMsg("Digite seu e-mail no campo acima primeiro para enviarmos o acesso.","err");
+   $("#authemail").focus();
+   return;
+  }
   var btn=$("#sendotpbtn");
-  btn.disabled=true;btn.textContent="Enviando e-mail…";
+  btn.disabled=true;btn.textContent="Enviando acesso para seu e-mail…";
   setAuthMsg("");
   try{
    var otpOpts={shouldCreateUser:true};
@@ -1415,11 +1745,11 @@ var CLOUD_CFG={
    $("#sentemailtxt").textContent=em;
    $("#authcode").value="";
    showAuthStep("code");
-   setAuthMsg("E-mail enviado! Abra sua caixa de entrada (ou Spam/Promoções) e clique em “Log In”.","ok");
+   setAuthMsg("Enviamos um link/código para "+em+"! Após abrir, salve uma senha em “Minha Conta” para nunca mais depender de e-mail.","ok");
   }catch(err){
-   setAuthMsg("Não foi possível enviar o e-mail agora. Aguarde alguns segundos e tente novamente.","err");
+   setAuthMsg("Não foi possível enviar o e-mail agora (limite temporário de envios). Aguarde um instante e tente novamente.","err");
   }
-  btn.disabled=false;btn.textContent="Enviar acesso para meu e-mail →";
+  btn.disabled=false;btn.textContent="Esqueci minha senha ou ainda não criei senha (receber por e-mail)";
  };
 
  $("#backemailbtn").onclick=function(){showAuthStep("email");setTimeout(function(){$("#authemail").focus()},80)};
@@ -1427,30 +1757,37 @@ var CLOUD_CFG={
  $("#verifyotpbtn").onclick=async function(){
   if(!sb||!pendingEmail)return;
   var code=($("#authcode").value||"").replace(/\s+/g,"");
-  if(code.length<6){setAuthMsg("Digite o código numérico recebido no e-mail.","err");$("#authcode").focus();return}
+  if(code.length<6){setAuthMsg("Digite o código de verificação que veio no e-mail (ou clique direto no botão dentro do e-mail).","err");$("#authcode").focus();return}
   var btn=$("#verifyotpbtn");
   btn.disabled=true;btn.textContent="Verificando…";
   setAuthMsg("");
   try{
-   var res=await sb.auth.verifyOtp({email:pendingEmail,token:code,type:"email"});
-   if(res.error){
-    res=await sb.auth.verifyOtp({email:pendingEmail,token:code,type:"signup"});
+   var types=["signup","email","magiclink","recovery"],res=null;
+   for(var ti=0;ti<types.length;ti++){
+    res=await sb.auth.verifyOtp({email:pendingEmail,token:code,type:types[ti]});
+    if(!res.error&&res.data&&res.data.session)break;
    }
-   if(res.error)throw res.error;
+   if(!res||res.error)throw (res&&res.error)||new Error("otp");
    if(res.data&&res.data.session){await handleSession(res.data.session)}
   }catch(err){
-   setAuthMsg("Código inválido ou expirado. Confira os números ou peça um novo código.","err");
+   setAuthMsg("Código inválido ou expirado. Confira no e-mail ou clique direto no botão dentro do e-mail recebido.","err");
   }
-  btn.disabled=false;btn.textContent="Confirmar código e abrir caderno";
+  btn.disabled=false;btn.textContent="Confirmar e abrir caderno";
  };
 
+ /* 4) LOGIN COM GOOGLE */
  $("#googlebtn").onclick=async function(){
   if(!sb)return;
   setAuthMsg("");
-  var res=await sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:cleanUrl()}});
-  if(res&&res.error)setAuthMsg("Não foi possível conectar com o Google agora.","err");
+  var gOpts={};
+  if(location.protocol==="https:"||location.protocol==="http:"){gOpts.redirectTo=cleanUrl()}
+  var res=await sb.auth.signInWithOAuth({provider:"google",options:gOpts});
+  if(res&&res.error){
+   setAuthMsg("Para usar o Google, ative o provedor Google no painel do Supabase (veja EMAILS-PERSONALIZADOS-SUPABASE.md).","err");
+  }
  };
 
+ /* 5) VALIDAÇÃO DA PALAVRA-PASSE DO CLUBE (TEXTO + NÚMEROS, SÓ 1 VEZ POR CONTA) */
  $("#unlockbtn").onclick=async function(){
   if(!sb||!USER)return;
   var code=($("#invitecode").value||"").trim();
@@ -1463,14 +1800,16 @@ var CLOUD_CFG={
    if(res.error)throw res.error;
    if(res.data===true){
     CLUB_OK=true;
+    try{localStorage.setItem("prosa-club-ok-"+USER.id,"1");localStorage.removeItem("prosa-pending-invite")}catch(e){}
+    updateAccountUI();
     closeModal($("#authgate"));
     toast("🎉 Bem-vindo(a) ao caderno Prosa & Rabisco!");
     await syncFromCloud();
    }else{
-    setAuthMsg("Palavra-passe incorreta. Confira o código enviado no grupo do WhatsApp.","err");
+    setAuthMsg("Palavra-passe incorreta. Confira exatamente o código enviado no grupo do WhatsApp.","err");
    }
   }catch(err){
-   setAuthMsg("Erro ao validar o convite. Verifique se o SQL do Supabase já foi executado.","err");
+   setAuthMsg("Erro ao validar o convite. Verifique sua conexão e tente novamente.","err");
   }
   btn.disabled=false;btn.textContent="Liberar meu acesso ✨";
  };
@@ -1478,52 +1817,100 @@ var CLOUD_CFG={
  async function doLogout(){
   if(!sb)return;
   closeModal($("#libmodal"));
+  closeModal($("#acctmodal"));
   try{await sb.auth.signOut()}catch(e){}
   USER=null;CLUB_OK=false;
   S={cur:null,books:[mk()],ownerId:null};
   B=S.books[0];S.cur=B.id;
   try{localStorage.removeItem(K3)}catch(e){}
   fill();
+  updateAccountUI();
   showAuthStep("email");
+  setAuthMode("login");
   openModal($("#authgate"));
   toast("Você saiu da sua conta.");
  }
 
  $("#logoutbtn").onclick=doLogout;
+ $("#acctlogoutbtn").onclick=doLogout;
  $("#switchaccbtn").onclick=doLogout;
 
- $("#authemail").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#sendotpbtn").click()}});
+ $("#authemail").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#authpass").focus()}});
+ $("#authpass").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#loginpassbtn").click()}});
+ $("#signupinvite").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#signupbtn").click()}});
  $("#authcode").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#verifyotpbtn").click()}});
  $("#invitecode").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#unlockbtn").click()}});
+ $("#profnameinp").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#savenamebtn").click()}});
+ $("#newpassinp").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();$("#newpassbtn").click()}});
 
  async function handleSession(session){
   if(!sb||READ_ONLY)return;
   if(!session||!session.user){
    USER=null;CLUB_OK=false;
+   updateAccountUI();
    showAuthStep("email");
    openModal($("#authgate"));
    return;
   }
   USER=session.user;
+  if(location.hash&&(location.hash.indexOf("access_token=")>-1||location.hash.indexOf("error=")>-1)&&window.history&&history.replaceState){
+   try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
+  }
+  var pName=getProfileName();
+  if(pName&&B&&!B.meta.nome){B.meta.nome=pName;$("#nome").value=pName;saveLocalOnly()}
+  updateAccountUI();
+
+  var clubKey="prosa-club-ok-"+USER.id,cachedClub=false,pendInv="";
+  try{
+   cachedClub=(localStorage.getItem(clubKey)==="1");
+   pendInv=(localStorage.getItem("prosa-pending-invite")||"").trim();
+  }catch(e){}
+
+  if(cachedClub){
+   CLUB_OK=true;
+   updateAccountUI();
+   closeModal($("#authgate"));
+   await syncFromCloud();
+   return;
+  }
+
   try{
    var stRes=await sb.rpc("check_club_status");
    if(stRes.error)throw stRes.error;
    var info=stRes.data||{};
    if(info.unlocked||info.invite_required===false){
     CLUB_OK=true;
+    try{localStorage.setItem(clubKey,"1");localStorage.removeItem("prosa-pending-invite")}catch(e){}
+    updateAccountUI();
     closeModal($("#authgate"));
     await syncFromCloud();
-   }else{
-    CLUB_OK=false;
-    showAuthStep("invite");
-    openModal($("#authgate"));
-    setTimeout(function(){$("#invitecode").focus()},90);
+    return;
    }
+   if(pendInv){
+    var unl=await sb.rpc("unlock_with_invite",{code_input:pendInv});
+    if(!unl.error&&unl.data===true){
+     CLUB_OK=true;
+     try{localStorage.setItem(clubKey,"1");localStorage.removeItem("prosa-pending-invite")}catch(e){}
+     updateAccountUI();
+     closeModal($("#authgate"));
+     toast("🎉 Conta ativada! Bem-vindo(a) ao Prosa & Rabisco!");
+     await syncFromCloud();
+     return;
+    }
+    try{localStorage.removeItem("prosa-pending-invite")}catch(e){}
+   }
+   CLUB_OK=false;
+   updateAccountUI();
+   showAuthStep("invite");
+   if(pendInv){setAuthMsg("Conta criada! Confira apenas a palavra-passe do clube abaixo para liberar seu caderno:","err")}
+   openModal($("#authgate"));
+   setTimeout(function(){$("#invitecode").focus()},90);
   }catch(err){
    CLUB_OK=false;
+   updateAccountUI();
    showAuthStep("invite");
    openModal($("#authgate"));
-   setAuthMsg("Conectado! Falta apenas rodar o arquivo supabase-setup.sql no painel do Supabase.","err");
+   setAuthMsg("Conectado! Digite a palavra-passe do clube para concluir o primeiro acesso.","err");
   }
  }
 
@@ -1561,10 +1948,20 @@ var CLOUD_CFG={
   if(USER&&CLUB_OK&&B&&!READ_ONLY){pushBookToCloud(B)}
  });
 
+ /* SINCRONIA AUTOMÁTICA ENTRE ABAS (se confirmar o e-mail em outra aba, destrava esta na hora!) */
+ window.addEventListener("storage",function(e){
+  if(!sb||READ_ONLY||!e||!e.key)return;
+  if(e.key.indexOf("-auth-token")>-1&&!USER){
+   sb.auth.getSession().then(function(r){
+    if(r&&r.data&&r.data.session){handleSession(r.data.session)}
+   }).catch(function(){});
+  }
+ });
+
  /* FECHAR MODAIS COM ESC (exceto o portal obrigatório #authgate) */
  document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){
-   ["#libmodal","#pdfmodal","#pwamodal","#sharemodal"].forEach(function(id){var m=$(id);if(m&&!m.hidden)closeModal(m)});
+   ["#libmodal","#pdfmodal","#pwamodal","#sharemodal","#acctmodal"].forEach(function(id){var m=$(id);if(m&&!m.hidden)closeModal(m)});
   }
  });
 
@@ -1635,16 +2032,40 @@ var CLOUD_CFG={
   }
   loadS();B=S.books.filter(function(b){return b.id===S.cur})[0]||S.books[0];S.cur=B.id;
   migrate();fill();setTab("ficha");save(true);
+  updateAccountUI();
   if(hasCloudCfg&&sb){
-   var sessRes=await sb.auth.getSession();
-   if(location.hash&&location.hash.indexOf("access_token=")>-1&&window.history&&history.replaceState){
-    try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
+   var oauthErr=urlParams.get("error_description")||(location.hash.match(/error_description=([^&]+)/)||[])[1]||"";
+   var tokenHash=urlParams.get("token_hash"),tokenType=urlParams.get("type");
+   if(tokenHash&&tokenType){
+    try{await sb.auth.verifyOtp({token_hash:tokenHash,type:tokenType})}catch(e){}
    }
-   await handleSession(sessRes&&sessRes.data?sessRes.data.session:null);
    sb.auth.onAuthStateChange(function(ev,session){
-    if(ev==="SIGNED_IN"&&(!USER||USER.id!==(session&&session.user&&session.user.id))){handleSession(session)}
-    else if(ev==="SIGNED_OUT"){USER=null;CLUB_OK=false;showAuthStep("email");openModal($("#authgate"))}
+    if((ev==="SIGNED_IN"||ev==="TOKEN_REFRESHED"||ev==="USER_UPDATED")&&session&&session.user){
+     if(!USER||USER.id!==session.user.id||!CLUB_OK){handleSession(session)}
+     else{USER=session.user;updateAccountUI()}
+    }else if(ev==="PASSWORD_RECOVERY"&&session&&session.user){
+     handleSession(session).then(function(){
+      if(CLUB_OK){openModal($("#acctmodal"));setTimeout(function(){$("#newpassinp").focus()},120);toast("Defina sua nova senha abaixo!")}
+     });
+    }else if(ev==="SIGNED_OUT"){
+     USER=null;CLUB_OK=false;updateAccountUI();showAuthStep("email");openModal($("#authgate"));
+    }
    });
+   var sessRes=await sb.auth.getSession();
+   var curSess=sessRes&&sessRes.data?sessRes.data.session:null;
+   var hasUrlAuth=(location.hash&&location.hash.indexOf("access_token=")>-1)||Boolean(urlParams.get("code"));
+   if(!curSess&&hasUrlAuth){
+    await new Promise(function(r){setTimeout(r,450)});
+    sessRes=await sb.auth.getSession();
+    curSess=sessRes&&sessRes.data?sessRes.data.session:null;
+   }
+   await handleSession(curSess);
+   if(oauthErr&&!curSess){
+    var decErr="";try{decErr=decodeURIComponent(oauthErr.replace(/\+/g," "))}catch(e){decErr=oauthErr}
+    if(decErr.toLowerCase().indexOf("provider")>-1){
+     setAuthMsg("Para usar o botão do Google, falta ativar o provedor Google no painel do Supabase (veja EMAILS-PERSONALIZADOS-SUPABASE.md). Enquanto isso, entre com e-mail e senha!","err");
+    }
+   }
   }
  });
 })();
