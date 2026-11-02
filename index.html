@@ -800,7 +800,7 @@ var CLOUD_CFG={
  url:"https://uesnapgwpqrzfxcmcxvl.supabase.co",
  anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlc25hcGd3cHFyemZ4Y21jeHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzOTcwOTksImV4cCI6MjEwODk3MzA5OX0.w4Yur9LGBO4Eo7F8s7blWEM-U34lu9iOHbGlv1XZABg",
  googleLogin:true, // Ative o provedor Google no Supabase (veja EMAILS-PERSONALIZADOS-SUPABASE.md)
- feedbackEmail:"prosaerabisco@gmail.com" // Destinatário para receber feedbacks dos usuários por e-mail
+ feedbackEmail:"prosaclubedolivro@gmail.com" // Destinatário para receber feedbacks dos usuários por e-mail
 };
 
 (function(){
@@ -1693,7 +1693,7 @@ var CLOUD_CFG={
    setFbMsg("Por favor, selecione uma nota de 1 a 5 ou escreva seus comentários.","err");
    return;
   }
-  var destEmail=(CLOUD_CFG.feedbackEmail||"prosaerabisco@gmail.com").trim();
+  var destEmail=(CLOUD_CFG.feedbackEmail||"prosaclubedolivro@gmail.com").trim();
   var btn=$("#sendfeedbackbtn");
   btn.disabled=true;
   btn.textContent="Enviando feedback…";
@@ -1727,21 +1727,32 @@ var CLOUD_CFG={
   }
 
   // 2. Enviar por e-mail via FormSubmit AJAX para CLOUD_CFG.feedbackEmail
-  try{
-   var postUrl="https://formsubmit.co/ajax/"+encodeURIComponent(destEmail);
-   var res=await fetch(postUrl,{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body:JSON.stringify(payload)
-   });
-   if(res.ok){
+  var formSubmitMsg = "";
+  var needsActivation = false;
+  if(location.protocol === "file:"){
+   sentViaFormSubmit = false;
+   formSubmitMsg = "⚠️ Teste local (arquivo aberto direto no computador): o serviço de envio por e-mail precisa que a página esteja no ar (GitHub Pages com https://). Ao publicar no GitHub, o e-mail é disparado normalmente!";
+  }else{
+   try{
+    var postUrl="https://formsubmit.co/ajax/"+encodeURIComponent(destEmail);
+    var res=await fetch(postUrl,{
+     method:"POST",
+     headers:{"Content-Type":"application/json","Accept":"application/json"},
+     body:JSON.stringify(payload)
+    });
     var json=await res.json().catch(function(){return{}});
-    if(json.success==="true"||json.message||res.status===200){
+    var msg=(json.message||"").toLowerCase();
+    if(msg.indexOf("activate")>-1||msg.indexOf("activation")>-1){
+     needsActivation=true;
      sentViaFormSubmit=true;
+    }else if(json.success==="true"||json.success===true||(res.ok&&json.message&&json.message.indexOf("open this page through a web server")===-1)){
+     sentViaFormSubmit=true;
+    }else if(json.message){
+     formSubmitMsg=json.message;
     }
+   }catch(e){
+    sentViaFormSubmit=false;
    }
-  }catch(e){
-   sentViaFormSubmit=false;
   }
 
   // Fallback mailto
@@ -1755,11 +1766,16 @@ var CLOUD_CFG={
   btn.disabled=false;
   btn.textContent="Enviar Feedback ✨";
 
-  if(sentViaFormSubmit){
+  if(needsActivation){
+   setFbMsg("📬 <strong>Quase pronto!</strong> O FormSubmit enviou o e-mail de ativação inicial para <strong>"+esc(destEmail)+"</strong>.<br><br>👉 Acesse seu Gmail e <strong>confira a Caixa de Entrada e a pasta Spam / Lixo Eletrônico</strong>. Clique em <em>'Activate Form'</em> uma única vez para liberar todos os envios!","ok");
+   toast("Quase lá! Ative o e-mail do FormSubmit.");
+  }else if(sentViaFormSubmit){
    closeModal($("#feedbackmodal"));
    toast("🎉 Muito obrigado! Seu feedback foi enviado por e-mail.");
+  }else if(formSubmitMsg){
+   setFbMsg(formSubmitMsg+"<br><br>Se preferir, envie diretamente pelo seu aplicativo de e-mail: <a href=\""+mailtoUrl+"\" target=\"_blank\" style=\"color:var(--ink);font-weight:700;text-decoration:underline\">Clique aqui para abrir seu e-mail</a>.","err");
   }else{
-   setFbMsg("✓ Feedback registrado! Se desejar enviar também diretamente pelo seu aplicativo de e-mail, <a href=\""+mailtoUrl+"\" target=\"_blank\" style=\"color:var(--ink);font-weight:700;text-decoration:underline\">clique aqui</a>.","ok");
+   setFbMsg("✓ Feedback salvo! Se quiser enviar também pelo seu aplicativo de e-mail, <a href=\""+mailtoUrl+"\" target=\"_blank\" style=\"color:var(--ink);font-weight:700;text-decoration:underline\">clique aqui para abrir seu e-mail</a>.","ok");
    setTimeout(function(){closeModal($("#feedbackmodal"))},4000);
    toast("✓ Feedback registrado com sucesso!");
   }
