@@ -75,7 +75,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .hero-copy{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .hero-title{margin:0;font-size:clamp(24px,3.2vw,30px);font-weight:700;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
 .hero-utils{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
-.acct-chip{padding:5px 11px 5px 6px!important;border-radius:99px!important;font-size:12px!important;gap:7px!important}
+.acct-chip{padding:4px 12px 4px 6px!important;border-radius:99px!important;font-size:12.5px!important;gap:7px!important}
 .acct-ava{width:24px;height:24px;border-radius:50%;background:var(--hl);color:#000;border:1.5px solid #000;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;flex-shrink:0;overflow:hidden;text-transform:uppercase}
 .acct-ava img{width:100%;height:100%;object-fit:cover;display:block}
 .acct-dot{width:7px;height:7px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0}
@@ -300,7 +300,8 @@ body.is-readonly input,body.is-readonly textarea{cursor:default}
   .hero-utils{justify-content:flex-start;width:100%}
   .active-bar{padding:12px;gap:10px}
   .active-info{width:100%;flex:none}
-  .active-actions{width:100%;display:grid;grid-template-columns:1fr auto;gap:8px}
+  .active-actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .active-actions #openlib{grid-column:1 / -1}
   .active-actions .btn{justify-content:center}
   .ptitle-row{align-items:flex-start}
   .ptitle-tools{width:100%}
@@ -318,6 +319,8 @@ body.is-readonly input,body.is-readonly textarea{cursor:default}
 }
 @media (max-width:420px){
   .active-actions .btn.sm,.ptitle-tools .btn.sm{padding:7px 9px;font-size:11.5px;gap:5px}
+  .active-actions .acct-chip{padding:4px 8px 4px 5px!important;font-size:11.5px!important;gap:5px!important}
+  .acct-ava{width:22px;height:22px;font-size:10.5px}
 }
 
 @media print{
@@ -351,11 +354,6 @@ body[data-print="all"] section[hidden]{display:block!important}
    <h1 class="hero-title"><span class="hl-sweep">Ficha de Síntese</span></h1>
    <div class="hero-utils noprint">
     <button class="btn xs" id="installbtn" type="button" title="Adicionar aplicativo na tela inicial do celular">📲 Instalar app</button>
-    <button class="btn xs acct-chip ro-hide" id="acctbtn" type="button" title="Ver minha conta, senha e sincronização">
-     <span class="acct-ava" id="acctava">👤</span>
-     <span id="acctlabel">Minha Conta</span>
-     <span class="acct-dot" id="acctdot" hidden></span>
-    </button>
    </div>
   </div>
  </header>
@@ -384,6 +382,11 @@ body[data-print="all"] section[hidden]{display:block!important}
   <div class="active-actions">
    <button class="btn sm p ro-hide" id="openlib" type="button" title="Ver todas as leituras salvas"><span>📚 Minhas Leituras</span><span class="btn-badge" id="libcount">1</span></button>
    <button class="btn sm ro-hide" id="newbooktop" type="button" title="Começar uma nova leitura">+ Nova Leitura</button>
+   <button class="btn sm acct-chip ro-hide" id="acctbtn" type="button" title="Ver minha conta, perfil e sincronização">
+    <span class="acct-ava" id="acctava">👤</span>
+    <span id="acctlabel">Minha Conta</span>
+    <span class="acct-dot" id="acctdot" hidden></span>
+   </button>
   </div>
  </div>
 
@@ -401,8 +404,7 @@ body[data-print="all"] section[hidden]{display:block!important}
   <div class="ptitle-row">
    <h2 class="ptitle">Notas &amp; trechos da leitura</h2>
    <div class="ptitle-tools noprint ro-hide">
-    <button class="btn sm" id="sharebtn" type="button" title="Gerar link público desta ficha para enviar no grupo">🔗 Compartilhar</button>
-    <button class="btn sm" id="toppdfbtn" type="button" title="Exportar ou imprimir em PDF">📄 Gerar PDF</button>
+    <button class="btn sm p" id="toppdfbtn" type="button" title="Exportar ou imprimir em PDF">📄 Gerar PDF</button>
    </div>
   </div>
   <div class="meta">
@@ -578,39 +580,6 @@ body[data-print="all"] section[hidden]{display:block!important}
    </div>
    <div style="padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px">
     <button class="btn p sm" id="okpwa">Entendi</button>
-   </div>
-  </div>
- </div>
-
- <!-- MODAL DE COMPARTILHAMENTO POR LINK PÚBLICO (?ver=TOKEN) -->
- <div class="modal-bg noprint" id="sharemodal" hidden>
-  <div class="modal-card" style="max-width:480px">
-   <div class="modal-head">
-    <h3>🔗 Compartilhar leitura</h3>
-    <button class="del" id="closeshare" aria-label="Fechar">×</button>
-   </div>
-   <div class="modal-body">
-    <div id="sharelocalbox">
-     <p class="note" style="margin:0 0 10px">Você ainda está usando o modo local deste aparelho. Assim que conectar o <strong>Supabase gratuito</strong> (veja o guia <code>COMO-COLOCAR-NO-AR.md</code>), este botão vai gerar um <strong>link exclusivo de leitura</strong> com as suas notas e rabisco para mandar no grupo!</p>
-     <button class="btn p sm" id="cpsharetxt" type="button">📋 Copiar ficha em texto para WhatsApp</button>
-    </div>
-    <div id="sharecloudbox" hidden>
-     <div id="shareoff">
-      <p class="note" style="margin:0 0 12px">Gere um link de <strong>somente leitura</strong> desta ficha para enviar no grupo do Prosa &amp; Rabisco. Quem abrir poderá ler seus trechos, insights e rabisco, mas <strong>não poderá alterar nem apagar nada</strong>.</p>
-      <button class="btn p" id="gensharebtn" type="button" style="width:100%;justify-content:center">✨ Gerar link público desta ficha</button>
-     </div>
-     <div id="shareon" hidden>
-      <div class="auth-msg ok" style="margin-bottom:10px">🟢 <strong>Link ativo!</strong> Qualquer pessoa com este endereço pode ler esta ficha:</div>
-      <div class="share-url-box">
-       <input id="shareurl" readonly aria-label="Link público da ficha">
-       <button class="btn sm p" id="cpsharebtn" type="button">📋 Copiar</button>
-      </div>
-      <div class="bar" style="margin:12px 0 0;justify-content:space-between">
-       <a class="btn sm p" id="washarebtn" href="#" target="_blank" rel="noopener">💬 Enviar no WhatsApp</a>
-       <button class="btn sm danger" id="revokesharebtn" type="button">🔒 Desativar link</button>
-      </div>
-     </div>
-    </div>
    </div>
   </div>
  </div>
@@ -1482,55 +1451,6 @@ var CLOUD_CFG={
  $("#okpwa").onclick=function(){closeModal($("#pwamodal"))};
  $("#pwamodal").onclick=function(e){if(e.target===$("#pwamodal"))closeModal($("#pwamodal"))};
 
- /* COMPARTILHAMENTO POR LINK PÚBLICO (?ver=TOKEN) */
- function updateShareUI(){
-  var cloudOk=Boolean(hasCloudCfg&&USER&&CLUB_OK);
-  $("#sharelocalbox").hidden=cloudOk;
-  $("#sharecloudbox").hidden=!cloudOk;
-  if(!cloudOk)return;
-  var active=Boolean(B.is_shared&&B.share_token);
-  $("#shareoff").hidden=active;
-  $("#shareon").hidden=!active;
-  if(active){
-   var link=cleanUrl()+"?ver="+encodeURIComponent(B.share_token);
-   $("#shareurl").value=link;
-   var bookTitle=B.meta&&B.meta.livro?"“"+B.meta.livro+"”":"minha leitura";
-   var msg="Olha a minha Ficha de Síntese sobre "+bookTitle+" no Prosa & Rabisco:\n"+link;
-   $("#washarebtn").href="https://wa.me/?text="+encodeURIComponent(msg);
-  }
- }
-
- $("#sharebtn").onclick=function(){updateShareUI();openModal($("#sharemodal"))};
- $("#closeshare").onclick=function(){closeModal($("#sharemodal"))};
- $("#sharemodal").onclick=function(e){if(e.target===$("#sharemodal"))closeModal($("#sharemodal"))};
- $("#cpsharetxt").onclick=function(){copy(fichaText())};
-
- $("#gensharebtn").onclick=async function(){
-  var btn=$("#gensharebtn");
-  btn.disabled=true;btn.textContent="Gerando link na nuvem…";
-  B.share_token=B.share_token||genToken();
-  B.is_shared=true;
-  B.upd=Date.now();
-  saveLocalOnly();
-  var ok=await pushBookToCloud(B);
-  btn.disabled=false;btn.textContent="✨ Gerar link público desta ficha";
-  if(!ok){B.is_shared=false;saveLocalOnly();toast("Sem conexão para ativar o link agora.");return}
-  updateShareUI();
-  toast("Link público criado!");
- };
-
- $("#cpsharebtn").onclick=function(){copy($("#shareurl").value)};
-
- $("#revokesharebtn").onclick=async function(){
-  if(!confirm("Desativar o link público desta leitura? Quem tiver o link antigo não conseguirá mais abrir."))return;
-  B.is_shared=false;
-  B.upd=Date.now();
-  saveLocalOnly();
-  await pushBookToCloud(B);
-  updateShareUI();
-  toast("Link público desativado.");
- };
-
  /* PERFIL "MINHA CONTA" + LOGIN REAL (E-MAIL/SENHA, CADASTRO ÚNICO, GOOGLE, OTP) */
  function setAuthMsg(txt,kind){
   var m=$("#authmsg");
@@ -1575,7 +1495,6 @@ var CLOUD_CFG={
  function updateAccountUI(){
   var btn=$("#acctbtn"),ava=$("#acctava"),lbl=$("#acctlabel"),dot=$("#acctdot");
   if(!btn)return;
-  if(!hasCloudCfg){btn.hidden=true;return}
   btn.hidden=false;
   if(USER&&USER.email){
    var pName=getProfileName();
@@ -1596,13 +1515,18 @@ var CLOUD_CFG={
    $("#profbookcnt").textContent=cnt+(cnt===1?" leitura salva na conta":" leituras salvas na conta");
   }else{
    ava.textContent="👤";
-   lbl.textContent="Entrar";
+   lbl.textContent="Minha Conta";
    dot.hidden=true;
   }
  }
 
  $("#acctbtn").onclick=function(){
-  if(!sb)return;
+  if(!sb){
+   if(window.supabase&&window.supabase.createClient&&baseCloudUrl&&CLOUD_CFG.anonKey){
+    try{sb=window.supabase.createClient(baseCloudUrl,CLOUD_CFG.anonKey.trim(),{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});hasCloudCfg=true;bootCloudAuth()}catch(e){}
+   }
+   if(!sb){toast("Conectando à nuvem... Verifique sua internet.");return}
+  }
   if(!USER||!CLUB_OK){openModal($("#authgate"));return}
   updateAccountUI();
   openModal($("#acctmodal"));
@@ -1849,10 +1773,14 @@ var CLOUD_CFG={
    USER=null;CLUB_OK=false;
    updateAccountUI();
    showAuthStep("email");
+   var hasEverLogged=false;
+   try{hasEverLogged=Boolean(localStorage.getItem("prosa-user-name")||localStorage.getItem("prosa-has-account"))}catch(e){}
+   setAuthMode(hasEverLogged?"login":"signup");
    openModal($("#authgate"));
    return;
   }
   USER=session.user;
+  try{localStorage.setItem("prosa-has-account","1")}catch(e){}
   if(location.hash&&(location.hash.indexOf("access_token=")>-1||location.hash.indexOf("error=")>-1)&&window.history&&history.replaceState){
    try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
   }
@@ -1961,7 +1889,7 @@ var CLOUD_CFG={
  /* FECHAR MODAIS COM ESC (exceto o portal obrigatório #authgate) */
  document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){
-   ["#libmodal","#pdfmodal","#pwamodal","#sharemodal","#acctmodal"].forEach(function(id){var m=$(id);if(m&&!m.hidden)closeModal(m)});
+   ["#libmodal","#pdfmodal","#pwamodal","#acctmodal"].forEach(function(id){var m=$(id);if(m&&!m.hidden)closeModal(m)});
   }
  });
 
