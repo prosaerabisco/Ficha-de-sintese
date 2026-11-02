@@ -278,6 +278,22 @@ h2{font-size:13px;text-transform:uppercase;margin:0 0 6px}
 .auth-msg.err{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
 .auth-msg.ok{border-color:var(--ink);background:var(--hl-soft);color:var(--ink)}
 
+/* FEEDBACK DISCRETO NO RODAPÉ */
+.feedback-footer-bar{text-align:center;margin:18px 0 6px;padding:4px}
+.btn-subtle{background:none;border:none;color:var(--mute);font-family:var(--font);font-size:12.5px;text-decoration:underline;cursor:pointer;padding:6px 10px;border-radius:6px;transition:color .16s ease,background-color .16s ease}
+.btn-subtle:hover{color:var(--ink);background:var(--bg)}
+.rating-group{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px 0 6px;flex-wrap:wrap}
+.rating-circle{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--font);font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s var(--ease-spring);box-shadow:1px 1px 0 rgba(0,0,0,.08);user-select:none}
+.rating-circle:hover{border-color:var(--ink);transform:scale(1.08);background:var(--hl-soft)}
+.rating-circle.is-active{background:var(--hl);color:#000;border-color:#000;transform:scale(1.15);box-shadow:3px 3px 0 #000}
+.rating-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin:0 4px 14px}
+.fb-field-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.fb-field-group label{font-size:12.5px;font-weight:600;color:var(--ink)}
+.fb-field-group textarea{width:100%;min-height:72px;padding:8px 10px;font-family:var(--font);font-size:13px;border:1.5px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);resize:vertical;transition:border-color .15s ease}
+.fb-field-group textarea:focus{border-color:var(--ink);outline:none}
+.fb-field-group input{width:100%;padding:8px 10px;font-family:var(--font);font-size:13px;border:1.5px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.fb-field-group input:focus{border-color:var(--ink);outline:none}
+
 body.is-readonly .ro-hide,
 body.is-readonly #add,
 body.is-readonly #fab,
@@ -527,6 +543,11 @@ body[data-print="all"] section[hidden]{display:block!important}
   </div>
  </details>
 
+ <!-- BOTÃO FEEDBACK DISCRETO NO RODAPÉ -->
+ <div class="feedback-footer-bar noprint">
+  <button class="btn-subtle" id="feedbackbtn" type="button">💬 Deixar feedback da ferramenta</button>
+ </div>
+
  <!-- MODAL DE EXPORTAÇÃO PDF -->
  <div class="modal-bg" id="pdfmodal" hidden>
   <div class="modal-card" style="max-width:400px">
@@ -621,6 +642,54 @@ body[data-print="all"] section[hidden]{display:block!important}
    <div style="padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px">
     <span class="note" id="profbookcnt">1 leitura salva</span>
     <button class="btn sm danger" id="acctlogoutbtn" type="button">Sair da conta</button>
+   </div>
+  </div>
+ </div>
+
+ <!-- MODAL DE FEEDBACK DOS LEITORES -->
+ <div class="modal-bg noprint" id="feedbackmodal" hidden>
+  <div class="modal-card" style="max-width:440px">
+   <div class="modal-head">
+    <h3>💬 Deixar Feedback</h3>
+    <button class="del" id="closefeedback" aria-label="Fechar">×</button>
+   </div>
+   <div class="modal-body">
+    <p class="note" style="margin:0 0 12px">Sua opinião é fundamental para aprimorarmos o caderno de sínteses do clube!</p>
+    <div>
+     <label class="f" style="text-align:center;display:block">Como você avalia a ferramenta?</label>
+     <div class="rating-group" id="fbratinggroup" role="radiogroup" aria-label="Avaliação de 1 a 5">
+      <button type="button" class="rating-circle" data-val="1" aria-label="1 - Precisa melhorar">1</button>
+      <button type="button" class="rating-circle" data-val="2" aria-label="2 - Ruim">2</button>
+      <button type="button" class="rating-circle" data-val="3" aria-label="3 - Regular">3</button>
+      <button type="button" class="rating-circle" data-val="4" aria-label="4 - Bom">4</button>
+      <button type="button" class="rating-circle" data-val="5" aria-label="5 - Excelente">5</button>
+     </div>
+     <div class="rating-labels">
+      <span>1 · Precisa melhorar</span>
+      <span>5 · Excelente!</span>
+     </div>
+    </div>
+
+    <div class="fb-field-group">
+     <label for="fbpos">✨ O que você mais gostou? (Pontos positivos)</label>
+     <textarea id="fbpos" placeholder="Ex: facilidade de registrar os trechos, visual limpo, exportação em PDF..."></textarea>
+    </div>
+
+    <div class="fb-field-group">
+     <label for="fbneg">💡 O que podemos melhorar? (Pontos negativos ou sugestões)</label>
+     <textarea id="fbneg" placeholder="Ex: senti falta de tal recurso, botão que quebrou linha, dúvida ao salvar..."></textarea>
+    </div>
+
+    <div class="fb-field-group">
+     <label for="fbemail">Seu e-mail ou nome (opcional, para retorno)</label>
+     <input id="fbemail" type="text" placeholder="voce@email.com ou seu nome">
+    </div>
+
+    <div class="auth-msg" id="fbmsg" hidden></div>
+   </div>
+   <div style="padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px">
+    <button class="btn sm" id="cancelfeedback" type="button">Cancelar</button>
+    <button class="btn sm p" id="sendfeedbackbtn" type="button">Enviar Feedback ✨</button>
    </div>
   </div>
  </div>
@@ -730,7 +799,8 @@ body[data-print="all"] section[hidden]{display:block!important}
 var CLOUD_CFG={
  url:"https://uesnapgwpqrzfxcmcxvl.supabase.co",
  anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlc25hcGd3cHFyemZ4Y21jeHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzOTcwOTksImV4cCI6MjEwODk3MzA5OX0.w4Yur9LGBO4Eo7F8s7blWEM-U34lu9iOHbGlv1XZABg",
- googleLogin:true // Ative o provedor Google no Supabase (veja EMAILS-PERSONALIZADOS-SUPABASE.md)
+ googleLogin:true, // Ative o provedor Google no Supabase (veja EMAILS-PERSONALIZADOS-SUPABASE.md)
+ feedbackEmail:"prosaerabisco@gmail.com" // Destinatário para receber feedbacks dos usuários por e-mail
 };
 
 (function(){
@@ -744,7 +814,7 @@ var CLOUD_CFG={
  }
 
  var PH={fisico:["pág. ou capítulo","Ex.: p. 42"],kindle:["localização / %","Ex.: loc. 1280 ou 35%"],pdf:["página do PDF","Ex.: pág. 17"],audio:["capítulo / minuto","Ex.: cap. 3 · 12:40"]};
- var $=function(s){return document.querySelector(s)},rowsEl=$("#rows");
+ var $=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))},rowsEl=$("#rows");
  var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)};
  var today=function(){return new Date().toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"})};
  function esc(s){return String(s||"").replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]})}
@@ -1566,6 +1636,135 @@ var CLOUD_CFG={
   btn.disabled=false;btn.textContent="Salvar senha";
  };
 
+ /* FEEDBACK DOS LEITORES (AVALIAÇÃO 1-5, PONTOS +/- & ENVIO POR E-MAIL) */
+ var selectedRating=0;
+ function setFbMsg(msg,type){
+  var el=$("#fbmsg");
+  if(!msg){el.hidden=true;el.textContent="";return}
+  el.className="auth-msg "+(type||"");
+  el.innerHTML=msg;
+  el.hidden=false;
+ }
+
+ function resetFeedbackForm(){
+  selectedRating=0;
+  $$(".rating-circle").forEach(function(b){b.classList.remove("is-active")});
+  $("#fbpos").value="";
+  $("#fbneg").value="";
+  setFbMsg("");
+  var em="";
+  if(USER&&USER.email)em=USER.email;
+  var pName=getProfileName();
+  if(pName&&em)em=pName+" <"+em+">";
+  else if(pName)em=pName;
+  $("#fbemail").value=em;
+  var btn=$("#sendfeedbackbtn");
+  btn.disabled=false;
+  btn.textContent="Enviar Feedback ✨";
+ }
+
+ $$(".rating-circle").forEach(function(btn){
+  btn.onclick=function(){
+   var v=parseInt(btn.getAttribute("data-val")||"0",10);
+   if(selectedRating===v){
+    selectedRating=0;
+    btn.classList.remove("is-active");
+   }else{
+    selectedRating=v;
+    $$(".rating-circle").forEach(function(b){b.classList.remove("is-active")});
+    btn.classList.add("is-active");
+   }
+  };
+ });
+
+ $("#feedbackbtn").onclick=function(){
+  resetFeedbackForm();
+  openModal($("#feedbackmodal"));
+ };
+ $("#closefeedback").onclick=function(){closeModal($("#feedbackmodal"))};
+ $("#cancelfeedback").onclick=function(){closeModal($("#feedbackmodal"))};
+ $("#feedbackmodal").onclick=function(e){if(e.target===$("#feedbackmodal"))closeModal($("#feedbackmodal"))};
+
+ $("#sendfeedbackbtn").onclick=async function(){
+  var pos=($("#fbpos").value||"").trim();
+  var neg=($("#fbneg").value||"").trim();
+  var email=($("#fbemail").value||"").trim();
+  if(!selectedRating&&!pos&&!neg){
+   setFbMsg("Por favor, selecione uma nota de 1 a 5 ou escreva seus comentários.","err");
+   return;
+  }
+  var destEmail=(CLOUD_CFG.feedbackEmail||"prosaerabisco@gmail.com").trim();
+  var btn=$("#sendfeedbackbtn");
+  btn.disabled=true;
+  btn.textContent="Enviando feedback…";
+  setFbMsg("");
+
+  var sentViaFormSubmit=false;
+  var payload={
+   _subject:"Novo Feedback Prosa & Rabisco: "+(selectedRating?selectedRating+"/5 estrelas":"Mensagem de leitor"),
+   _template:"table",
+   _captcha:"false",
+   avaliacao_estrelas:selectedRating?selectedRating+" de 5":"Não selecionada",
+   pontos_positivos:pos||"(nenhum informado)",
+   pontos_negativos_e_sugestoes:neg||"(nenhum informado)",
+   usuario_contato:email||(USER?USER.email:"Anônimo"),
+   livro_atual:(B&&B.meta&&B.meta.livro)||"(sem título)",
+   data_hora:new Date().toLocaleString("pt-BR"),
+   dispositivo:navigator.userAgent
+  };
+
+  // 1. Salvar no Supabase (se configurado)
+  if(sb){
+   try{
+    await sb.from("feedbacks").insert({
+     user_id:(USER&&USER.id)||null,
+     rating:selectedRating||null,
+     positives:pos||null,
+     negatives:neg||null,
+     user_email:email||(USER&&USER.email)||null
+    });
+   }catch(e){}
+  }
+
+  // 2. Enviar por e-mail via FormSubmit AJAX para CLOUD_CFG.feedbackEmail
+  try{
+   var postUrl="https://formsubmit.co/ajax/"+encodeURIComponent(destEmail);
+   var res=await fetch(postUrl,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body:JSON.stringify(payload)
+   });
+   if(res.ok){
+    var json=await res.json().catch(function(){return{}});
+    if(json.success==="true"||json.message||res.status===200){
+     sentViaFormSubmit=true;
+    }
+   }
+  }catch(e){
+   sentViaFormSubmit=false;
+  }
+
+  // Fallback mailto
+  var mailtoBody="AVALIAÇÃO: "+(selectedRating?selectedRating+"/5":"(não informado)")+
+   "\n\nPONTOS POSITIVOS:\n"+(pos||"(em branco)")+
+   "\n\nPONTOS A MELHORAR / SUGESTÕES:\n"+(neg||"(em branco)")+
+   "\n\nCONTATO:\n"+(email||"Anônimo")+
+   "\nDATA: "+new Date().toLocaleString("pt-BR");
+  var mailtoUrl="mailto:"+encodeURIComponent(destEmail)+"?subject="+encodeURIComponent("Feedback Prosa & Rabisco: "+(selectedRating?selectedRating+"/5":"Sugestão"))+"&body="+encodeURIComponent(mailtoBody);
+
+  btn.disabled=false;
+  btn.textContent="Enviar Feedback ✨";
+
+  if(sentViaFormSubmit){
+   closeModal($("#feedbackmodal"));
+   toast("🎉 Muito obrigado! Seu feedback foi enviado por e-mail.");
+  }else{
+   setFbMsg("✓ Feedback registrado! Se desejar enviar também diretamente pelo seu aplicativo de e-mail, <a href=\""+mailtoUrl+"\" target=\"_blank\" style=\"color:var(--ink);font-weight:700;text-decoration:underline\">clique aqui</a>.","ok");
+   setTimeout(function(){closeModal($("#feedbackmodal"))},4000);
+   toast("✓ Feedback registrado com sucesso!");
+  }
+ };
+
  /* 1) LOGIN DIRETO COM E-MAIL E SENHA (SEM REENVIAR LINK NO E-MAIL) */
  $("#loginpassbtn").onclick=async function(){
   if(!sb)return;
@@ -1889,7 +2088,7 @@ var CLOUD_CFG={
  /* FECHAR MODAIS COM ESC (exceto o portal obrigatório #authgate) */
  document.addEventListener("keydown",function(e){
   if(e.key==="Escape"){
-   ["#libmodal","#pdfmodal","#pwamodal","#acctmodal"].forEach(function(id){var m=$(id);if(m&&!m.hidden)closeModal(m)});
+   ["#libmodal","#pdfmodal","#pwamodal","#acctmodal","#feedbackmodal"].forEach(function(id){var m=$(id);if(m&&!m.hidden)closeModal(m)});
   }
  });
 
